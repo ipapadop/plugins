@@ -1,0 +1,26 @@
+{
+  "name": "ipapadop",
+  "owner": {
+    "name": "Yiannis Papadopoulos",
+    "url": "https://github.com/ipapadop"
+  },
+  "description": "Plugins maintained by Yiannis Papadopoulos.",
+  "plugins": [
+    {
+      "name": "ipapadop-skills",
+      "displayName": "ipapadop Skills",
+      "source": "./plugins/ipapadop-skills",
+      "description": "Opinionated agent skills for Codex and Claude Code.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Yiannis Papadopoulos",
+        "url": "https://github.com/ipapadop"
+      },
+      "homepage": "https://github.com/ipapadop/skills",
+      "repository": "https://github.com/ipapadop/skills",
+      "license": "MIT",
+      "category": "Productivity",
+      "tags": ["agent-skills", "documentation"]
+    }
+  ]
+}

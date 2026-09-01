@@ -1,0 +1,13 @@
+{
+  "name": "ipapadop-skills",
+  "version": "0.1.0",
+  "description": "Opinionated agent skills for Codex and Claude Code.",
+  "author": {
+    "name": "Yiannis Papadopoulos",
+    "url": "https://github.com/ipapadop"
+  },
+  "homepage": "https://github.com/ipapadop/skills",
+  "repository": "https://github.com/ipapadop/skills",
+  "license": "MIT",
+  "keywords": ["agent-skills", "codex", "claude-code"]
+}
