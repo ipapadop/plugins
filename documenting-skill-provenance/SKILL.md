@@ -22,7 +22,7 @@ Establish:
 - all authors: include every evidenced commit author or committer who touched the skill and any separately evidenced author;
 - changes since the last release and their compatibility impact.
 
-Do not invent evidence. Write `Not documented` wherever a required fact cannot be established. Separate confirmed dependencies from unresolved candidates.
+Do not invent evidence. Treat existing uncommitted work as user-owned; do not overwrite or attribute it without evidence. Write `Not documented` wherever a required fact cannot be established. Separate confirmed dependencies from unresolved candidates.
 
 ## Review Before Editing
 
