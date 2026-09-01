@@ -299,7 +299,7 @@ git -C "${PROVENANCE_EVAL_DIR}/versioned-skill" diff --check
 git -C "${PROVENANCE_EVAL_DIR}/versioned-skill" diff -- README.md
 ```
 
-Expected for Scenario A: custom prose is unchanged; all required provenance is present; both commit authors appear under authors; release notes are newest first.
+Expected for Scenario A: custom prose is unchanged; all required provenance is present; every evidenced commit author and committer appears under authors; release notes are newest first.
 
 Expected for Scenario B: every unavailable required value appears as `Not documented`; no identity, source revision, release, or dependency is fabricated.
 
