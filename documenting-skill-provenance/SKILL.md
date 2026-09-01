@@ -19,7 +19,7 @@ Establish:
 - runtimes, packages, scripts, shell commands, external tools/services, and other skills it actually uses;
 - sources used to create it, with names, URLs or local paths, repository commit hashes/tags, and published versions/releases where applicable;
 - a one-sentence explanation for each local source;
-- all authors: include every evidenced commit author who touched the skill and any separately evidenced author;
+- all authors: include every evidenced commit author or committer who touched the skill and any separately evidenced author;
 - changes since the last release and their compatibility impact.
 
 Do not invent evidence. Write `Not documented` wherever a required fact cannot be established. Separate confirmed dependencies from unresolved candidates.
