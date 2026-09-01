@@ -11,22 +11,16 @@ The skill must preserve existing custom README content. It reviews that content 
 The skill contains:
 
 - `SKILL.md`, defining trigger conditions, inspection workflow, evidence requirements, approval gates, and update rules.
-- `assets/README.template.md`, defining the canonical managed provenance block.
+- `assets/README.template.md`, defining the canonical provenance content and suggested section structure for a new README.
 - `agents/openai.yaml`, providing minimal Codex UI metadata while retaining automatic discovery.
 
 No executable helper is included initially. Dependency discovery, source assessment, and semantic-version classification require judgment, so an instruction-led workflow is the smallest appropriate design. A script should be added only if behavioral testing demonstrates a specific reliability problem that deterministic automation would solve.
 
 ## README Contract
 
-The skill manages one block delimited by:
+The skill reads the README as a whole and identifies which required provenance information is already present, incomplete, stale, contradictory, or missing. It does not require or add delimiter comments. For an existing README, it follows the document's headings, terminology, and organization where practical, filling gaps with the smallest coherent edits. For a new README, it uses the bundled template as the initial structure.
 
-```markdown
-<!-- skill-provenance:start -->
-...
-<!-- skill-provenance:end -->
-```
-
-Content outside this block is preserved byte-for-byte unless the user separately approves a correction. The managed block contains:
+Existing content is preserved unless the user separately approves a correction. The completed README contains:
 
 1. A description of what the skill does.
 2. How it works, including its trigger conditions.
@@ -56,11 +50,11 @@ The skill operates on one target skill directory at a time:
 2. Inspect Git history and the diff since the last documented release. Use the existing README as a secondary consistency check.
 3. Inventory confirmed dependencies and sources. Report unresolved candidates separately rather than presenting them as facts.
 4. Derive authors from commits that touched the skill and merge them with evidenced, explicitly supplied authors.
-5. Review preserved README content for contradictions or stale statements.
+5. Review existing README content for contradictions, stale statements, and missing required provenance.
 6. Report missing information, evidence limitations, and proposed corrections.
 7. Infer whether the accumulated changes require a major, minor, or patch increment. Explain the compatibility and behavior evidence supporting that proposal.
-8. Ask the user to approve the proposed semantic version, release entry, and any corrections outside the managed block.
-9. After approval, create or replace only the managed provenance block and apply only separately approved corrections.
+8. Ask the user to approve the proposed semantic version, release entry, and any corrections to existing README content.
+9. After approval, fill in the missing provenance within the README's existing structure, add only sections that are absent, and apply only separately approved corrections.
 10. Re-read the result, verify ordering and preservation, and report unresolved `Not documented` fields.
 
 If no version exists, the skill proposes `0.1.0` and requires confirmation. If there are no release-worthy changes, it does not create a version bump or release entry.
@@ -80,7 +74,7 @@ These rules guide a proposal, not an autonomous decision. The README is not upda
 - Unavailable, shallow, or ambiguous Git history is reported. Any affected provenance is marked `Not documented`.
 - Uncertain dependency usage is separated from confirmed dependencies.
 - Missing authors, source revisions, and release dates are never invented.
-- A malformed or duplicated managed block causes the skill to stop and request direction before rewriting it.
+- Ambiguous or duplicated provenance sections are reported, and the skill requests direction before consolidating or rewriting them.
 - Contradictions in preserved README content are shown to the user with the supporting evidence; corrections require approval.
 - Existing uncommitted work is treated as user-owned and must not be overwritten or attributed without evidence.
 
@@ -95,11 +89,11 @@ The completed skill must pass the standard `quick_validate.py` check and behavio
 - Git-derived authors and release changes;
 - a reasoned SemVer proposal followed by mandatory user approval;
 - newest-first release-note ordering;
-- a malformed or duplicated managed block;
+- ambiguous or duplicated provenance sections;
 - idempotency, so rerunning without release-worthy changes creates no new release.
 
 Behavioral evaluation should first establish baseline failures without the skill, then repeat the same scenarios with the skill and inspect the generated artifacts. Any additional instruction or automation must address an observed failure rather than a hypothetical one.
 
 ## Success Criteria
 
-The work is complete when another Codex instance can use the skill to produce an accurate, reviewable provenance README; preserve unrelated content; expose unknown facts; propose and confirm semantic versioning; attribute all evidenced contributors as authors; and maintain newest-first release notes without duplicating entries on an unchanged rerun.
+The work is complete when another Codex instance can use the skill to read and complete an existing README without delimiter markers; produce an accurate, reviewable README when none exists; preserve unrelated content; expose unknown facts; propose and confirm semantic versioning; attribute all evidenced contributors as authors; and maintain newest-first release notes without duplicating entries on an unchanged rerun.
