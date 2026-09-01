@@ -1,0 +1,20 @@
+{
+  "name": "ipapadop",
+  "interface": {
+    "displayName": "ipapadop Plugins"
+  },
+  "plugins": [
+    {
+      "name": "ipapadop-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ipapadop-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

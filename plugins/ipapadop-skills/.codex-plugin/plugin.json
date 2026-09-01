@@ -1,0 +1,25 @@
+{
+  "name": "ipapadop-skills",
+  "version": "0.1.0",
+  "description": "Opinionated agent skills for Codex and Claude Code.",
+  "author": {
+    "name": "Yiannis Papadopoulos",
+    "url": "https://github.com/ipapadop"
+  },
+  "homepage": "https://github.com/ipapadop/skills",
+  "repository": "https://github.com/ipapadop/skills",
+  "license": "MIT",
+  "keywords": ["agent-skills", "codex", "claude-code"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "ipapadop Skills",
+    "shortDescription": "Opinionated agent workflows for Codex.",
+    "longDescription": "A collection of opinionated agent skills for repeatable development workflows in Codex and Claude Code.",
+    "developerName": "Yiannis Papadopoulos",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Document this skill's provenance and release history."
+    ]
+  }
+}
