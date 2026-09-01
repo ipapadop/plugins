@@ -1,0 +1,4 @@
+interface:
+  display_name: "Document Skill Provenance"
+  short_description: "Create evidence-based skill provenance READMEs"
+  default_prompt: "Use $documenting-skill-provenance to complete this skill README with provenance and release history."
