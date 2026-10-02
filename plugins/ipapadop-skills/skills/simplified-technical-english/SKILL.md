@@ -17,6 +17,8 @@ Short, direct text is easier to verify, translate, and act on. Filler hides the 
 
 If the user gives a style, template, or house voice, follow it. Use these rules for the parts it leaves open.
 
+For code documentation (docstrings, API comments, code comments, and READMEs that ship with code), the `code-documentation-style` skill takes precedence if it is available. For example, it permits contractions.
+
 ## Core rules
 
 1. **Lead with the answer.** Put the result, decision, or first step in the first sentence. Do not open with "Great question", "Certainly", or a restatement of the request.

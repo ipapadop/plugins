@@ -8,7 +8,7 @@ The skill makes an agent write short, direct technical text without filler. It a
 
 ### Trigger conditions
 
-The agent loads the skill when it writes or edits a document (README, specification, design document, procedure, runbook, API or user guide, report), a code comment, or a commit message. The agent also loads it when it replies to a technical request. The user does not have to mention style. The skill does not apply to fiction or marketing copy. If the user gives a house style, the agent follows that style and applies the skill where the style is silent.
+The agent loads the skill when it writes or edits a document (README, specification, design document, procedure, runbook, API or user guide, report), a code comment, or a commit message. The agent also loads it when it replies to a technical request. The user does not have to mention style. The skill does not apply to fiction or marketing copy. If the user gives a house style, the agent follows that style and applies the skill where the style is silent. For code documentation, the `code-documentation-style` skill takes precedence if it is available.
 
 ### Workflow
 
@@ -48,7 +48,7 @@ The skill paraphrases the writing rules in Part 1 of the specification. It does 
 
 ## Version
 
-1.0.0
+1.0.1
 
 ## Authors
 
@@ -57,6 +57,11 @@ The skill paraphrases the writing rules in Part 1 of the specification. It does 
 ## Release notes
 
 Newest releases appear first.
+
+### 1.0.1
+
+- Date: 2026-10-02
+- Changes: Defers to the `code-documentation-style` skill for code documentation, so that the two skills do not give conflicting rules (for example, about contractions).
 
 ### 1.0.0
 

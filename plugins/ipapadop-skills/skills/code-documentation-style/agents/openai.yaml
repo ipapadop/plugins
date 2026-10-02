@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Documentation Style"
+  short_description: "Write compact code docs in the Google developer style"
+  default_prompt: "Use $code-documentation-style to document this code in clear, compact technical language."
