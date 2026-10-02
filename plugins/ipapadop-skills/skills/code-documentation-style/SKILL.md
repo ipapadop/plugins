@@ -15,6 +15,8 @@ Filler costs the reader time and hides the facts. Stale or restated comments are
 2. The language's own documentation convention. For example, Go doc comments start with the identifier name ("Fetch returns ..."), and Rust uses `# Examples` and `# Errors` sections.
 3. The rules in this skill, for everything the first two leave open.
 
+For code documentation, this skill takes precedence over general prose-style skills such as `simplified-technical-english`. For example, use contractions here even if that skill is also loaded.
+
 ## What to document
 
 - Document every public class, interface, struct, enum, constant, field, function, and method. Describe each parameter, the return value, and each exception or error the caller must handle.
@@ -87,7 +89,7 @@ Put the replacement in the first sentence, then the version and migration steps.
 - Use sentence case for headings: "Configure the client", not "Configure The Client".
 - Use numbered lists for steps in order and bulleted lists for other items. Use the serial comma.
 - Introduce each code block with a sentence. End it with a colon if the block follows directly.
-- Make commands copy-paste ready. Do not include `[optional]`, `{a|b}`, or `...` in a command the reader runs. For several command lines, start each line with `$`.
+- Make commands copy-paste ready. Do not include `[optional]`, `{a|b}`, `...`, or a `$` prompt in a command the reader runs. Put command output in a separate block.
 - Name placeholders in `UPPER_SNAKE_CASE`, then explain them: "Replace `PROJECT_ID` with your project ID." For several placeholders, write "Replace the following:" and a list.
 - Show command output only when the reader must check or copy a value. Introduce it with "The output is similar to the following:".
 - Use descriptive link text: "see the [configuration reference](...)", not "click [here](...)".
@@ -139,7 +141,7 @@ def load_config(path, strict=False):
 
 Check each comment once:
 
-- The summary starts with a verb (functions) or a noun phrase (types) and doesn't repeat the name.
+- The summary starts with a verb (functions) or a noun phrase (types) and doesn't repeat the name, unless the language convention requires the name, as Go does.
 - No comment restates the code, narrates an edit, or contains filler from the list above.
 - Each parameter, return value, and error the caller handles is described, with units and defaults.
 - Code entities are in code font.
