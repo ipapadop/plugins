@@ -4,6 +4,7 @@ Collection of opinionated agent skills for Codex, Claude Code, and other tools t
 
 ## Available skills
 
+- `code-documentation-style`: makes agents write docstrings, API comments, code comments, and code READMEs in clear, compact language, based on the Google developer documentation style guide.
 - `documenting-skill-provenance`: creates evidence-based skill documentation with provenance, dependency, authorship, version, and release-history details.
 - `simplified-technical-english`: makes agents write short, direct technical text without filler, based on the writing rules of ASD-STE100 Simplified Technical English (Issue 9).
 
