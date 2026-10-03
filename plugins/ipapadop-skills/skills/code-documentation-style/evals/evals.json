@@ -1,0 +1,38 @@
+{
+  "skill_name": "code-documentation-style",
+  "evals": [
+    {
+      "id": 0,
+      "name": "requested-scope",
+      "prompt": "Document only fetch(url) in this module. fetch returns client.get(url), which returns bytes and raises NetworkError on connection failure. The module also exposes parse(data) and save(path, data), both undocumented. Do not change behavior.",
+      "expected_output": "Document fetch using established facts. Leave parse and save unchanged.",
+      "files": [],
+      "assertions": [
+        "Only fetch documentation changes; unrelated APIs remain unchanged.",
+        "Describes the URL parameter, bytes return, and NetworkError without inventing additional guarantees."
+      ]
+    },
+    {
+      "id": 1,
+      "name": "project-conventions",
+      "prompt": "Add a docstring to def timeout_ms(): return 1000. Nearby Python docstrings use NumPy sections and imperative summaries, such as \"Return the retry limit.\" Follow these conventions.",
+      "expected_output": "Follow NumPy and imperative project conventions instead of forcing the default summary voice.",
+      "files": [],
+      "assertions": [
+        "Uses the existing project docstring convention.",
+        "States that the return is 1000 milliseconds; does not invent runtime configuration."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "facts-not-history",
+      "prompt": "Rewrite this comment without changing code: \"Updated to use the new API. Simply retry 3 times!\" The function retries connection failures at most three times, waits 200 ms between retries, and propagates the last NetworkError if all retries fail.",
+      "expected_output": "Document retry conditions, limit, delay, and final error without edit narration.",
+      "files": [],
+      "assertions": [
+        "Preserves retry limit, delay units, failure condition, and propagated error.",
+        "Omits edit history and filler without deleting caller-visible facts."
+      ]
+    }
+  ]
+}

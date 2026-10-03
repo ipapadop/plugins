@@ -1,0 +1,40 @@
+{
+  "skill_name": "documenting-skill-provenance",
+  "evals": [
+    {
+      "id": 0,
+      "name": "missing-evidence",
+      "prompt": "Complete a README for a skill with no README or Git history. Its SKILL.md says it summarizes local text files using the agent file tools. No packages, commands, services, authors, or source revisions are evidenced. Prepare a concrete proposed README and release entry for review before recording a version.",
+      "expected_output": "A reviewable README proposal with evidenced dependencies and unknown authors/sources marked Not documented; proposes 0.1.0 without recording it before approval.",
+      "files": [],
+      "assertions": [
+        "Distinguishes known file-tool usage from unknown provenance.",
+        "Does not invent authors, sources, releases, or historical dates.",
+        "Presents the exact proposed version and entry before writing release claims."
+      ]
+    },
+    {
+      "id": 1,
+      "name": "preserve-existing-claims",
+      "prompt": "An existing skill README says \"Requires pandas 1.5\" and \"Version 1.0.0\". Inspected scripts use only Python standard library csv, and Git shows no release-worthy changes since 1.0.0. Complete missing provenance, but I have not authorized changing existing claims.",
+      "expected_output": "Propose the dependency correction for approval, preserve existing claims until approved, and do not create a release.",
+      "files": [],
+      "assertions": [
+        "Reports the stale pandas claim and requests approval before changing it.",
+        "Does not bump version or add a release for an unchanged implementation.",
+        "Does not treat the README as proof of an actual dependency."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "idempotent-approved-update",
+      "prompt": "The user approved this exact 1.0.1 release entry: \"Clarifies source evidence.\" A completed README already contains that entry, required sections, and verified authors and sources. Git and files are unchanged since it was written. Rerun the provenance workflow.",
+      "expected_output": "Verify the README and leave it unchanged.",
+      "files": [],
+      "assertions": [
+        "Does not append a duplicate 1.0.1 release or create 1.0.2.",
+        "Reports that the unchanged rerun requires no edits."
+      ]
+    }
+  ]
+}

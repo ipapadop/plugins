@@ -24,7 +24,7 @@ For code documentation (docstrings, API comments, code comments, and READMEs tha
 1. **Lead with the answer.** Put the result, decision, or first step in the first sentence. Do not open with "Great question", "Certainly", or a restatement of the request.
 2. **Cut filler.** Remove praise, apologies, hedges ("it should be noted that", "basically", "I think"), promises ("let me know if..."), and closing recaps of what you just said.
 3. **Write only what the reader needs.** Do not add sections, appendices, or alternatives that the task does not need. Do not invent facts such as host names, numbers, or targets. List each missing fact as an open question or a clearly marked placeholder.
-4. **Write short sentences.** Maximum 20 words in a procedure step, 25 in descriptive text. Give one idea per sentence. Split long sentences instead of joining them with commas or semicolons.
+4. **Write short sentences.** Aim for 20 words or fewer in a procedure step and 25 in descriptive text. Give one idea per sentence. Keep a longer sentence when splitting it would obscure a technical condition, qualification, or relationship. Preserve exact quotations, code, and required wording.
 5. **Use the active voice.** Name the actor: "The server rejects the request", not "The request is rejected". Use the passive only when the actor is unknown or unimportant. (STE permits the passive only in descriptions, and only when the actor is unknown. This skill is less strict.)
 6. **Use plain, specific words.** Prefer "use" to "utilize", "start" to "initiate", "about" to "approximately", "need" to "it is necessary to". Prefer a precise verb to a noun phrase: "Configure the pool", not "Perform configuration of the pool".
 7. **Keep one term for one thing.** Do not vary names for style. If you call it a "worker" once, do not call it a "runner" or "agent" later. Define a new term the first time you use it. Put a noun after "this" and "these": write "This lock causes a deadlock", not "This causes a deadlock".
@@ -77,7 +77,7 @@ Revised:
 Check the draft once:
 
 - The first sentence gives the answer or first step.
-- No sentence is longer than the limit.
+- Long sentences are split where this improves clarity without losing a technical condition, qualification, or relationship.
 - Each term has one meaning, and each thing has one name.
 - No sentence only repeats, praises, apologizes, or offers more help.
 - Each fact, step, and warning the reader needs is still present. Shorter is not better if it removes a needed fact.
