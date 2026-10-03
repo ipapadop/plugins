@@ -1,0 +1,38 @@
+{
+  "skill_name": "simplified-technical-english",
+  "evals": [
+    {
+      "id": 0,
+      "name": "precision-over-count",
+      "prompt": "Rewrite this sentence for clarity: \"The worker retries the transaction only if the connection fails before the server acknowledges the commit and the caller supplied an idempotency key.\" Preserve both conditions and their relationship.",
+      "expected_output": "A concise explanation that preserves the conjunction and commit timing, even if a sentence exceeds the target length.",
+      "files": [],
+      "assertions": [
+        "Retains both the pre-acknowledgement connection failure and caller-supplied idempotency key as required conditions.",
+        "Does not imply that either condition alone permits retry."
+      ]
+    },
+    {
+      "id": 1,
+      "name": "required-wording",
+      "prompt": "Write a short release note, including this exact customer-required sentence unchanged: \"The service retains audit records for thirty calendar days after account closure unless a documented legal hold requires continued retention for the duration of the hold.\"",
+      "expected_output": "Preserve the required sentence verbatim despite its length.",
+      "files": [],
+      "assertions": [
+        "Includes the supplied sentence exactly.",
+        "Does not add unsupported retention promises or dates."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "house-style",
+      "prompt": "Explain that the reader must restart the worker after changing its configuration. Our house style uses contractions, says \"worker\" consistently, and uses no headings for short replies.",
+      "expected_output": "A short direct explanation following the house style.",
+      "files": [],
+      "assertions": [
+        "States that configuration changes require restarting the worker.",
+        "Uses worker consistently and follows the requested house style."
+      ]
+    }
+  ]
+}

@@ -19,7 +19,7 @@ For code documentation, this skill takes precedence over general prose-style ski
 
 ## What to document
 
-- Document every public class, interface, struct, enum, constant, field, function, and method. Describe each parameter, the return value, and each exception or error the caller must handle.
+- Document public classes, interfaces, structs, enums, constants, fields, functions, and methods within the requested scope or changed API. Do not add documentation to unrelated members. Describe each parameter, the return value, and each exception or error the caller must handle.
 - Write a comment inside a function only when the code cannot say it: why a choice was made, a non-obvious constraint, a workaround and its cause, a units or ownership rule. Assume the reader knows the language better than you do.
 - Do not describe what the next line does (`# Increment the counter`). Do not restate the name or the type signature.
 - Do not narrate your edit. Comments such as "Updated to use the new client", "Fixed bug where...", or "Now handles None" describe history, not code. History belongs in the commit message.

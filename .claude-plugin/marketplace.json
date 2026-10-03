@@ -11,7 +11,7 @@
       "displayName": "ipapadop Skills",
       "source": "./plugins/ipapadop-skills",
       "description": "Opinionated agent skills for Codex and Claude Code.",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": {
         "name": "Yiannis Papadopoulos",
         "url": "https://github.com/ipapadop"
