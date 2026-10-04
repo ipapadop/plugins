@@ -13,7 +13,7 @@ The agent loads the skill when it writes, adds, or edits docstrings, API referen
 ### Workflow
 
 1. The agent reads nearby code and follows the project's documentation conventions first, then the language's conventions. The skill rules apply where both are silent.
-2. The agent decides what to document: every public member, and an inline comment only when the code cannot explain itself.
+2. The agent documents public members within the requested scope or changed API. It leaves unrelated members alone and adds an inline comment only when the code cannot explain itself.
 3. The agent writes each comment with the skill's rules: a verb-first summary sentence, fixed wording for parameters, return values, exceptions, and deprecations, the language rules, and the rules for code in text and READMEs.
 4. Before it finishes, the agent checks each comment against a five-item list.
 
@@ -58,7 +58,7 @@ The skill paraphrases the sources. It does not copy their text. The Python style
 
 ## Version
 
-1.0.0
+1.0.1
 
 ## Authors
 
@@ -67,6 +67,11 @@ The skill paraphrases the sources. It does not copy their text. The Python style
 ## Release notes
 
 Newest releases appear first.
+
+### 1.0.1
+
+- Date: 2026-10-02
+- Changes: Limits documentation edits to the requested scope or changed API. Adds evaluations for scope, project conventions, and factual accuracy.
 
 ### 1.0.0
 

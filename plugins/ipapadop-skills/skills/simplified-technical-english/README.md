@@ -12,7 +12,7 @@ The agent loads the skill when it writes or edits a document (README, specificat
 
 ### Workflow
 
-1. The agent applies 11 core rules to all text. For example, the rules tell the agent to lead with the answer, cut filler, and keep sentences short.
+1. The agent applies 11 core rules to all text. For example, the rules tell the agent to lead with the answer, cut filler, and keep sentences short. Sentence lengths are targets; technical precision and required wording take precedence.
 2. The agent applies the rules for the type of text: procedures (imperative steps, one action in each step, safety instructions before the risky step), descriptions (one topic in each paragraph, no commands), or chat replies (answer first, state uncertainty once).
 3. Before it sends the text, the agent checks the draft against a five-item list. The last item makes sure that no needed fact, step, or warning was removed.
 
@@ -48,7 +48,7 @@ The skill paraphrases the writing rules in Part 1 of the specification. It does 
 
 ## Version
 
-1.0.1
+1.0.2
 
 ## Authors
 
@@ -57,6 +57,11 @@ The skill paraphrases the writing rules in Part 1 of the specification. It does 
 ## Release notes
 
 Newest releases appear first.
+
+### 1.0.2
+
+- Date: 2026-10-02
+- Changes: Treats sentence lengths as targets and preserves technical qualifications, exact quotations, code, and required wording. Adds evaluations for precision and house-style precedence.
 
 ### 1.0.1
 
