@@ -1,7 +1,7 @@
 {
-  "name": "ipapadop-skills",
-  "version": "0.2.1",
-  "description": "Opinionated agent skills for Codex and Claude Code.",
+  "name": "documenting-skill-provenance",
+  "version": "0.1.0",
+  "description": "Create evidence-based skill READMEs with provenance, dependency, authorship, version, and release-history details.",
   "author": {
     "name": "Yiannis Papadopoulos",
     "url": "https://github.com/ipapadop"
