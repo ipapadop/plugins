@@ -1,0 +1,23 @@
+{
+  "name": "power-of-ten",
+  "version": "0.1.0",
+  "description": "Write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's Power of Ten rules.",
+  "author": {
+    "name": "Yiannis Papadopoulos",
+    "url": "https://github.com/ipapadop"
+  },
+  "homepage": "https://github.com/ipapadop/plugins",
+  "repository": "https://github.com/ipapadop/plugins",
+  "license": "MIT",
+  "keywords": ["agent-skills", "codex", "claude-code"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Power of Ten",
+    "shortDescription": "Write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's Power of Ten rules.",
+    "longDescription": "Write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's Power of Ten rules.",
+    "developerName": "Yiannis Papadopoulos",
+    "category": "Coding",
+    "capabilities": [],
+    "defaultPrompt": ["Use $power-of-ten to review this safety-critical C code against the Power of Ten rules."]
+  }
+}

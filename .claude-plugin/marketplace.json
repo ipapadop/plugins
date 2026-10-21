@@ -53,6 +53,22 @@
       "license": "MIT",
       "category": "Productivity",
       "tags": ["agent-skills", "writing"]
+    },
+    {
+      "name": "power-of-ten",
+      "displayName": "Power of Ten",
+      "source": "./plugins/power-of-ten",
+      "description": "Write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's Power of Ten rules.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Yiannis Papadopoulos",
+        "url": "https://github.com/ipapadop"
+      },
+      "homepage": "https://github.com/ipapadop/plugins",
+      "repository": "https://github.com/ipapadop/plugins",
+      "license": "MIT",
+      "category": "Coding",
+      "tags": ["agent-skills", "c", "cpp", "safety-critical"]
     }
   ]
 }

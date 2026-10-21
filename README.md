@@ -7,6 +7,7 @@ Collection of opinionated agent skills for Codex, Claude Code, and other tools t
 Each skill is a separate plugin with the same name.
 
 - `code-documentation-style`: makes agents write docstrings, API comments, code comments, and code READMEs in clear, compact language, based on the Google developer documentation style guide.
+- `power-of-ten`: makes agents write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's "Power of Ten" rules (NASA/JPL), with a C++ interpretation of each rule.
 - `simplified-technical-english`: makes agents write short, direct technical text without filler, based on the writing rules of ASD-STE100 Simplified Technical English (Issue 9).
 - `skill-provenance`: creates evidence-based skill documentation with provenance, dependency, authorship, version, and release-history details.
 

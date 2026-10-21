@@ -1,0 +1,4 @@
+interface:
+  display_name: "Power of Ten"
+  short_description: "Write and review safety-critical C/C++ with the Power of Ten rules"
+  default_prompt: "Use $power-of-ten to review this safety-critical C code against the Power of Ten rules."
