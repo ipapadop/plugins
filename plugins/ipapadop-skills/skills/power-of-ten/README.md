@@ -50,7 +50,7 @@ The skill paraphrases the paper. It reproduces the paper's `c_assert` macro patt
 
 ## Version
 
-0.1.0
+0.1.1
 
 ## Authors
 
@@ -59,6 +59,11 @@ The skill paraphrases the paper. It reproduces the paper's `c_assert` macro patt
 ## Release notes
 
 Newest releases appear first.
+
+### 0.1.1
+
+- Date: 2026-10-21
+- Changes: Shortened the Codex `short_description` in `agents/openai.yaml` to 62 characters, within the 25 to 64 characters that the Codex skill-creator recommends.
 
 ### 0.1.0
 

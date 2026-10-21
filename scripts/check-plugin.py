@@ -6,21 +6,22 @@ change to any skill comes with a higher plugin version.
 
 Usage: check-plugin.py [--base REF]
 
-With --base, compares the plugin version with the version at REF. Without
-it, checks only the skill metadata.
+With --base, compares the plugin version with the version at the merge base
+of REF and HEAD. Without it, checks only the skill metadata.
 """
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
 
 import yaml
 
-PLUGIN = Path("plugins/ipapadop-skills")
-MANIFEST = PLUGIN / ".claude-plugin/plugin.json"
-SKILLS = PLUGIN / "skills"
+ROOT = Path(__file__).resolve().parent.parent
+MANIFEST = Path("plugins/ipapadop-skills/.claude-plugin/plugin.json")
+SKILLS = Path("plugins/ipapadop-skills/skills")
 
 # Codex shows at most 1024 characters of a description and truncates the rest.
 MAX_DESCRIPTION = 1024
@@ -28,14 +29,25 @@ MAX_NAME = 64
 # Codex skill-creator guideline for interface.short_description.
 SHORT_DESCRIPTION = range(25, 65)
 
+FRONT_MATTER = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
+
+
+def git(*args):
+    return subprocess.run(
+        ["git", *args], cwd=ROOT, capture_output=True, text=True
+    )
+
 
 def check_skill(skill_dir):
     """Returns a list of problems with one skill's metadata."""
+    match = FRONT_MATTER.match((skill_dir / "SKILL.md").read_text())
+    front = yaml.safe_load(match.group(1)) if match else None
+    if not isinstance(front, dict):
+        return ["SKILL.md has no YAML front matter"]
+
     problems = []
-    text = (skill_dir / "SKILL.md").read_text()
-    front = yaml.safe_load(text.split("---")[1])
-    name = front.get("name", "")
-    description = front.get("description", "")
+    name = str(front.get("name") or "")
+    description = str(front.get("description") or "")
     if name != skill_dir.name:
         problems.append(f"name {name!r} does not match directory {skill_dir.name!r}")
     if len(name) > MAX_NAME:
@@ -49,8 +61,8 @@ def check_skill(skill_dir):
 
     openai_yaml = skill_dir / "agents/openai.yaml"
     if openai_yaml.exists():
-        interface = yaml.safe_load(openai_yaml.read_text()).get("interface", {})
-        short = interface.get("short_description", "")
+        interface = (yaml.safe_load(openai_yaml.read_text()) or {}).get("interface")
+        short = str((interface or {}).get("short_description") or "")
         if len(short) not in SHORT_DESCRIPTION:
             problems.append(
                 f"short_description has {len(short)} characters, expected "
@@ -65,25 +77,24 @@ def version_tuple(version):
 
 def check_version(base):
     """Returns a problem if skills changed since base without a version bump."""
-    changed = subprocess.run(
-        ["git", "diff", "--name-only", base, "--", str(SKILLS)],
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.split()
+    merge_base = git("merge-base", base, "HEAD")
+    if merge_base.returncode != 0:
+        return f"cannot find the merge base of {base} and HEAD: {merge_base.stderr.strip()}"
+    merge_base = merge_base.stdout.strip()
+
+    changed = git("diff", "--name-only", merge_base, "--", str(SKILLS)).stdout.split()
     if not changed:
         return None
-    old = subprocess.run(
-        ["git", "show", f"{base}:{MANIFEST}"], capture_output=True, text=True
-    )
+    old = git("show", f"{merge_base}:{MANIFEST}")
     if old.returncode != 0:
+        print(f"Version check skipped: {MANIFEST} does not exist at {base}.")
         return None
     old_version = json.loads(old.stdout)["version"]
-    new_version = json.loads(MANIFEST.read_text())["version"]
+    new_version = json.loads((ROOT / MANIFEST).read_text())["version"]
     if version_tuple(new_version) <= version_tuple(old_version):
         return (
             f"{len(changed)} skill file(s) changed but {MANIFEST} version is "
-            f"{new_version}, not higher than {old_version} on {base}"
+            f"{new_version}, not higher than {old_version} at {base}"
         )
     return None
 
@@ -94,7 +105,7 @@ def main():
     args = parser.parse_args()
 
     failed = False
-    for skill_dir in sorted(p for p in SKILLS.iterdir() if p.is_dir()):
+    for skill_dir in sorted(p for p in (ROOT / SKILLS).iterdir() if p.is_dir()):
         for problem in check_skill(skill_dir):
             print(f"{skill_dir.name}: {problem}")
             failed = True

@@ -22,11 +22,12 @@ jobs:
 
       - name: Check skill metadata and plugin version
         run: |
-          pip install pyyaml
+          pip install pyyaml==6.0.2
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             python scripts/check-plugin.py --base "origin/${{ github.base_ref }}"
           else
-            python scripts/check-plugin.py
+            # On push, compare with the commit before the push.
+            python scripts/check-plugin.py --base "${{ github.event.before }}"
           fi
 
       - name: Setup Node.js
@@ -36,6 +37,7 @@ jobs:
 
       - name: Validate marketplace and plugin
         run: |
-          npm install -g @anthropic-ai/claude-code
+          # Pinned: --strict fails on warnings, and new releases add checks.
+          npm install -g @anthropic-ai/claude-code@2.1.306
           claude plugin validate . --strict
           claude plugin validate plugins/ipapadop-skills --strict
