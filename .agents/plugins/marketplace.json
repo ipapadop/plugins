@@ -5,10 +5,34 @@
   },
   "plugins": [
     {
-      "name": "ipapadop-skills",
+      "name": "code-documentation-style",
       "source": {
         "source": "local",
-        "path": "./plugins/ipapadop-skills"
+        "path": "./plugins/code-documentation-style"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "documenting-skill-provenance",
+      "source": {
+        "source": "local",
+        "path": "./plugins/documenting-skill-provenance"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "simplified-technical-english",
+      "source": {
+        "source": "local",
+        "path": "./plugins/simplified-technical-english"
       },
       "policy": {
         "installation": "AVAILABLE",

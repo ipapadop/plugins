@@ -4,6 +4,8 @@ Collection of opinionated agent skills for Codex, Claude Code, and other tools t
 
 ## Available skills
 
+Each skill is a separate plugin with the same name.
+
 - `code-documentation-style`: makes agents write docstrings, API comments, code comments, and code READMEs in clear, compact language, based on the Google developer documentation style guide.
 - `documenting-skill-provenance`: creates evidence-based skill documentation with provenance, dependency, authorship, version, and release-history details.
 - `simplified-technical-english`: makes agents write short, direct technical text without filler, based on the writing rules of ASD-STE100 Simplified Technical English (Issue 9).
@@ -25,18 +27,18 @@ For prose and provenance cases, inspect factual accuracy, required wording, edit
 Ask Codex:
 
 ```text
-Use $skill-installer to install plugins/ipapadop-skills/skills/documenting-skill-provenance from ipapadop/plugins.
+Use $skill-installer to install plugins/documenting-skill-provenance/skills/documenting-skill-provenance from ipapadop/plugins.
 ```
 
 The skill becomes available on the next turn.
 
-### Install the plugin
+### Install a plugin
 
-Register this repository as a marketplace and install the plugin:
+Each skill is a separate plugin, so you can install only the skills you want. Register this repository as a marketplace and install a plugin:
 
 ```bash
 codex plugin marketplace add ipapadop/plugins
-codex plugin add ipapadop-skills@ipapadop
+codex plugin add documenting-skill-provenance@ipapadop
 ```
 
 Start a new Codex thread after installation so Codex discovers the plugin's skills.
@@ -47,10 +49,12 @@ Run these commands inside Claude Code:
 
 ```text
 /plugin marketplace add ipapadop/plugins
-/plugin install ipapadop-skills@ipapadop
+/plugin install documenting-skill-provenance@ipapadop
 ```
 
-If the installation summary requests it, run `/reload-plugins`. The skill is available as `/ipapadop-skills:documenting-skill-provenance`.
+If the installation summary requests it, run `/reload-plugins`. The skill is available as `/documenting-skill-provenance:documenting-skill-provenance`.
+
+Repeat the install command for each plugin that you want.
 
 ## Install in Gemini CLI
 
@@ -58,7 +62,7 @@ Install the skill directly from its repository subdirectory:
 
 ```bash
 gemini skills install https://github.com/ipapadop/plugins.git \
-  --path plugins/ipapadop-skills/skills/documenting-skill-provenance
+  --path plugins/documenting-skill-provenance/skills/documenting-skill-provenance
 ```
 
 ## Antigravity compatibility

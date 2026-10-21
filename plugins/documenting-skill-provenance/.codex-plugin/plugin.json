@@ -1,0 +1,23 @@
+{
+  "name": "documenting-skill-provenance",
+  "version": "0.1.0",
+  "description": "Create evidence-based skill READMEs with provenance, dependency, authorship, version, and release-history details.",
+  "author": {
+    "name": "Yiannis Papadopoulos",
+    "url": "https://github.com/ipapadop"
+  },
+  "homepage": "https://github.com/ipapadop/plugins",
+  "repository": "https://github.com/ipapadop/plugins",
+  "license": "MIT",
+  "keywords": ["agent-skills", "codex", "claude-code"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Document Skill Provenance",
+    "shortDescription": "Create evidence-based skill READMEs with provenance, dependency, authorship, version, and release-history details.",
+    "longDescription": "Create evidence-based skill READMEs with provenance, dependency, authorship, version, and release-history details.",
+    "developerName": "Yiannis Papadopoulos",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": ["Use $documenting-skill-provenance to complete this skill README with provenance and release history."]
+  }
+}
