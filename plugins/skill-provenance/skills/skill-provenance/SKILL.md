@@ -1,5 +1,5 @@
 ---
-name: documenting-skill-provenance
+name: skill-provenance
 description: Use when creating or updating a skill README that needs provenance, dependency, source, authorship, semantic-version, or release-history information.
 ---
 

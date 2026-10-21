@@ -17,10 +17,10 @@
       "category": "Productivity"
     },
     {
-      "name": "documenting-skill-provenance",
+      "name": "skill-provenance",
       "source": {
         "source": "local",
-        "path": "./plugins/documenting-skill-provenance"
+        "path": "./plugins/skill-provenance"
       },
       "policy": {
         "installation": "AVAILABLE",
