@@ -57,12 +57,14 @@ If the installation summary requests it, run `/reload-plugins`. Each skill is av
 
 ## Install in Gemini CLI
 
-Install the skill directly from its repository subdirectory:
+Install all skills:
 
 ```bash
 gemini skills install https://github.com/ipapadop/plugins.git \
-  --path plugins/ipapadop-skills/skills/skill-provenance
+  --path plugins/ipapadop-skills/skills
 ```
+
+To install one skill, add its directory to the path, for example `--path plugins/ipapadop-skills/skills/skill-provenance`. Re-run the command to update.
 
 ## Antigravity compatibility
 
