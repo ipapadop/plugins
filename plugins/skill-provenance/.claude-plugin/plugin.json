@@ -1,6 +1,6 @@
 {
-  "name": "documenting-skill-provenance",
-  "version": "0.1.0",
+  "name": "skill-provenance",
+  "version": "0.2.0",
   "description": "Create evidence-based skill READMEs with provenance, dependency, authorship, version, and release-history details.",
   "author": {
     "name": "Yiannis Papadopoulos",

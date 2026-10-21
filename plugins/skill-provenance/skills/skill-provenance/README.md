@@ -1,4 +1,4 @@
-# Documenting skill provenance
+# Skill provenance
 
 ## What this skill does
 
