@@ -1,0 +1,114 @@
+{
+  "skill_name": "power-of-ten",
+  "evals": [
+    {
+      "id": 0,
+      "name": "c-write-telemetry-queue",
+      "prompt": "I'm writing flight software for a cubesat in C11. Write telemetry_queue.h and telemetry_queue.c: a FIFO of telemetry samples (uint16_t sensor id, int32_t value, uint32_t timestamp_ms) that the sensor task pushes and the downlink task drains into a caller-provided byte buffer, little-endian, 10 bytes per sample. Capacity 256 samples. Also give me a small main.c that exercises it. This is safety-critical code, so write it accordingly.",
+      "expected_output": "A fixed-capacity C queue with static storage, bounded loops, status-code returns, recoverable assertions, checked parameters and return values, and a compile check with pedantic warnings.",
+      "files": [],
+      "assertions": [
+        "No malloc, calloc, realloc, free, VLA, or alloca appears in the queue implementation.",
+        "Every loop has a bound that is a compile-time constant or a value checked against one; no while loop depends only on data.",
+        "No recursion, goto, setjmp, longjmp, or function pointer appears.",
+        "Runtime checks of preconditions return an error status instead of calling the standard assert() or abort(); the queue functions average at least two such checks per function.",
+        "Every pointer parameter of a public queue function is checked for NULL before it is dereferenced.",
+        "No macro uses ## or __VA_ARGS__.",
+        "No function is longer than 60 lines.",
+        "The three files compile together with gcc -std=c11 -Wall -Wextra -Wpedantic -Werror -Wconversion with zero warnings, and the program runs to completion.",
+        "The reply states whether the code was compiled and with which flags."
+      ]
+    },
+    {
+      "id": 1,
+      "name": "c-review-sensor-log",
+      "prompt": "Our payload controller team wants a Power of Ten (JPL) compliance review of evals/files/sensor_log.c before it goes into the flight build. List every rule violation with the line number and the fix. Don't rewrite the file.",
+      "expected_output": "A list of violations grouped by rule, with lines and fixes, that finds the planted violations and does not flag the compliant constructs.",
+      "files": ["evals/files/sensor_log.c"],
+      "assertions": [
+        "Flags the recursion in count_nodes (line 56) under rule 1.",
+        "Flags the goto in log_flush (lines 100 and 112) under rule 1.",
+        "Flags at least one of the loops with no static bound: the while loop at line 64 or the for loop at line 102, under rule 2.",
+        "Flags malloc in log_record (line 79) under rule 3, and the unchecked malloc result under rule 7.",
+        "Flags the ignored return values of fwrite (line 104) and fclose (line 106) under rule 7.",
+        "Flags the token-pasting macro DEFINE_COUNTER (line 15) and the variadic macro LOG (line 14) under rule 8.",
+        "Flags the unjustified #ifdef DEBUG_DUMP (line 107) under rule 8.",
+        "Flags the function pointer type log_cb or the indirect call on_record(r) (lines 25, 30, 87) under rule 9.",
+        "Flags the pointer-hiding typedef rec_ptr (line 24) under rule 9.",
+        "Flags the global g_tmp (line 31) under rule 6.",
+        "Does not report the (void)printf cast at line 110 or the c_assert macro's #e stringizing (lines 10-12) as violations.",
+        "Does not modify sensor_log.c."
+      ]
+    },
+    {
+      "id": 2,
+      "name": "c-refactor-flood-fill",
+      "prompt": "evals/files/flood_fill.c is going into infusion pump firmware and our static analyzer rejects it because fill() is recursive. Refactor it so it complies with the JPL Power of Ten rules. Keep the flood_fill() signature and return values in flood_fill.h. Write the new flood_fill.c to the outputs directory.",
+      "expected_output": "A non-recursive flood fill that uses a fixed-capacity explicit stack in static or stack storage, with a bound derived from the grid size, the same results as the original, and checked parameters.",
+      "files": ["evals/files/flood_fill.c", "evals/files/flood_fill.h"],
+      "assertions": [
+        "The refactored flood_fill.c contains no direct or indirect recursion.",
+        "The explicit work stack or queue has a compile-time capacity and is not heap-allocated; no malloc, VLA, or alloca.",
+        "The capacity is large enough for the worst case on a GRID_ROWS x GRID_COLS grid, or overflow returns a defined error and the reply states the limit.",
+        "Every loop has a provable bound.",
+        "For a full-grid fill, a single-cell region, a checkerboard, a start outside the grid, and new_color equal to the old color, the refactored function returns the same values and leaves the grid in the same state as the original.",
+        "The file compiles with gcc -std=c11 -Wall -Wextra -Wpedantic -Werror -Wconversion with zero warnings.",
+        "The flood_fill signature in flood_fill.h is unchanged."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "cpp-write-command-dispatcher",
+      "prompt": "We're building the body control module for an automotive ECU in C++17 (gcc, -fno-exceptions -fno-rtti, safety-critical, no heap after startup). Write command_dispatcher.hpp/.cpp: it receives CAN commands (uint8_t id, up to 8 data bytes, uint8_t dlc) and dispatches them to handlers for these ids: 0x10 set_headlights(level 0-3), 0x11 lock_doors(bool), 0x12 set_wiper(mode 0-4, speed 0-255), 0x13 request_status (fills a reply frame). Unknown ids and malformed payloads must be rejected with an error code. Include a test main.cpp.",
+      "expected_output": "A dispatcher with compile-time call targets (switch on id), no heap use, no exceptions, [[nodiscard]] status results, checked lengths and ranges, and a clean pedantic compile.",
+      "files": [],
+      "assertions": [
+        "Dispatch uses a switch or direct calls; no std::function, function pointer, member function pointer, or virtual call through a base pointer selects the handler.",
+        "No new, delete, make_unique, make_shared, std::vector, std::string, std::map, or other allocating container in the dispatcher.",
+        "No throw, try, or catch.",
+        "Functions that return a status are marked [[nodiscard]] (on the function or on the status type), and every call site uses the result.",
+        "Each handler checks dlc and value ranges before using payload bytes, and rejects an unknown id with an error code.",
+        "Every loop has a compile-time bound.",
+        "No macro uses ## or __VA_ARGS__.",
+        "The files compile with g++ -std=c++17 -Wall -Wextra -Wpedantic -Werror -Wconversion -fno-exceptions -fno-rtti with zero warnings, and the test program runs to completion.",
+        "The reply identifies which C++ guidance is an interpretation beyond the paper's C rules, or does not claim that the paper itself forbids C++-specific features."
+      ]
+    },
+    {
+      "id": 4,
+      "name": "cpp-review-path-planner",
+      "prompt": "Review evals/files/path_planner.cpp from our rover mobility software against Holzmann's Power of Ten rules. I need a list of violations with line numbers and suggested fixes for the code review. Don't edit the file.",
+      "expected_output": "A review that maps the paper's rules to C++ features (exceptions, heap-allocating containers, virtual dispatch, std::function) and finds the planted violations without flagging compliant code.",
+      "files": ["evals/files/path_planner.cpp"],
+      "assertions": [
+        "Flags the recursion in depth() (line 87) under rule 1.",
+        "Flags the throw in step() (line 76) as non-local control flow under rule 1, or otherwise as a violation.",
+        "Flags the unbounded while loop in trace() (line 94), including the possible overrun of out, under rule 2.",
+        "Flags path_.push_back (line 78) as heap allocation after initialization under rule 3.",
+        "Flags std::make_unique (line 60) or the unique_ptr storage as heap allocation under rule 3.",
+        "Flags the ignored add_obstacle result (line 121) under rule 7.",
+        "Flags the token-pasting macro FIELD (line 11) under rule 8.",
+        "Flags virtual dispatch through Obstacle (lines 31, 69, or 106) and the std::function listener (lines 51, 81) as indirect calls under rule 9.",
+        "Does not report the static_assert at line 16 or the range-for over std::array at line 104 as violations.",
+        "Does not modify path_planner.cpp."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "cpp-refactor-tlv-parser",
+      "prompt": "evals/files/tlv_parser.hpp and tlv_parser.cpp parse nested TLV telemetry frames on our spacecraft's command and data handling board. It now has to meet the JPL Power of Ten rules and build with -fno-exceptions. Refactor it. You may change the API, but keep the parsing semantics (paths, values, and which frames are errors). Write the new tlv_parser.hpp and tlv_parser.cpp to the outputs directory, plus a test that shows old and new give the same results.",
+      "expected_output": "A parser without recursion, exceptions, or heap allocation: an explicit bounded nesting stack, fixed-capacity output with an error when full, status codes, and tests that compare against the original.",
+      "files": ["evals/files/tlv_parser.hpp", "evals/files/tlv_parser.cpp"],
+      "assertions": [
+        "The new parser contains no recursion.",
+        "The new parser contains no throw, try, or catch, and compiles with -fno-exceptions.",
+        "The new parser does not use std::vector, std::string, new, or other heap allocation; output goes to fixed-capacity or caller-provided storage.",
+        "Nesting depth and output count have named compile-time limits, and exceeding them returns a distinct error status.",
+        "Every loop has a provable bound.",
+        "Functions that return a status are [[nodiscard]] or return a [[nodiscard]] type.",
+        "For valid frames (flat, nested, empty container, zero-length value) the new parser yields the same paths and values as the original, and for truncated headers and truncated values it reports an error where the original threw.",
+        "The new files compile with g++ -std=c++17 -Wall -Wextra -Wpedantic -Werror -Wconversion -fno-exceptions with zero warnings."
+      ]
+    }
+  ]
+}

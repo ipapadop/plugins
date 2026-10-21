@@ -1,6 +1,6 @@
 {
   "name": "ipapadop-skills",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Opinionated agent skills for Codex and Claude Code.",
   "author": {
     "name": "Yiannis Papadopoulos",
@@ -13,13 +13,14 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "ipapadop Skills",
-    "shortDescription": "Opinionated agent skills for writing and documentation.",
-    "longDescription": "Opinionated agent skills for code documentation, Simplified Technical English, and skill provenance in Codex and Claude Code.",
+    "shortDescription": "Opinionated agent skills for writing, documentation, and safety-critical C and C++.",
+    "longDescription": "Opinionated agent skills for code documentation, safety-critical C and C++ with the Power of Ten rules, Simplified Technical English, and skill provenance in Codex and Claude Code.",
     "developerName": "Yiannis Papadopoulos",
     "category": "Productivity",
     "capabilities": [],
     "defaultPrompt": [
       "Use $code-documentation-style to document this code in clear, compact technical language.",
+      "Use $power-of-ten to review this safety-critical C code against the Power of Ten rules.",
       "Use $simplified-technical-english to write this document or reply in clear, short technical language.",
       "Use $skill-provenance to complete this skill README with provenance and release history."
     ]

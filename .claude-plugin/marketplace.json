@@ -11,7 +11,7 @@
       "displayName": "ipapadop Skills",
       "source": "./plugins/ipapadop-skills",
       "description": "Opinionated agent skills for Codex and Claude Code.",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "author": {
         "name": "Yiannis Papadopoulos",
         "url": "https://github.com/ipapadop"
@@ -20,7 +20,7 @@
       "repository": "https://github.com/ipapadop/plugins",
       "license": "MIT",
       "category": "Productivity",
-      "tags": ["agent-skills", "documentation", "writing"]
+      "tags": ["agent-skills", "documentation", "writing", "safety-critical"]
     }
   ]
 }
