@@ -4,7 +4,7 @@ Collection of opinionated agent skills for Codex, Claude Code, and other tools t
 
 ## Available skills
 
-Each skill is a separate plugin with the same name.
+All skills are in one plugin, `ipapadop-skills`.
 
 - `code-documentation-style`: makes agents write docstrings, API comments, code comments, and code READMEs in clear, compact language, based on the Google developer documentation style guide.
 - `power-of-ten`: makes agents write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's "Power of Ten" rules (NASA/JPL), with a C++ interpretation of each rule.
@@ -28,18 +28,18 @@ For prose and provenance cases, inspect factual accuracy, required wording, edit
 Ask Codex:
 
 ```text
-Use $skill-installer to install plugins/skill-provenance/skills/skill-provenance from ipapadop/plugins.
+Use $skill-installer to install plugins/ipapadop-skills/skills/skill-provenance from ipapadop/plugins.
 ```
 
 The skill becomes available on the next turn.
 
-### Install a plugin
+### Install all skills
 
-Each skill is a separate plugin, so you can install only the skills you want. Register this repository as a marketplace and install a plugin:
+Register this repository as a marketplace and install the plugin:
 
 ```bash
 codex plugin marketplace add ipapadop/plugins
-codex plugin add skill-provenance@ipapadop
+codex plugin add ipapadop-skills@ipapadop
 ```
 
 Start a new Codex thread after installation so Codex discovers the plugin's skills.
@@ -50,12 +50,10 @@ Run these commands inside Claude Code:
 
 ```text
 /plugin marketplace add ipapadop/plugins
-/plugin install skill-provenance@ipapadop
+/plugin install ipapadop-skills@ipapadop
 ```
 
-If the installation summary requests it, run `/reload-plugins`. The skill is available as `/skill-provenance:skill-provenance`.
-
-Repeat the install command for each plugin that you want.
+If the installation summary requests it, run `/reload-plugins`. Each skill is available as `/ipapadop-skills:<skill>`, for example `/ipapadop-skills:skill-provenance`.
 
 ## Install in Gemini CLI
 
@@ -63,7 +61,7 @@ Install the skill directly from its repository subdirectory:
 
 ```bash
 gemini skills install https://github.com/ipapadop/plugins.git \
-  --path plugins/skill-provenance/skills/skill-provenance
+  --path plugins/ipapadop-skills/skills/skill-provenance
 ```
 
 ## Antigravity compatibility

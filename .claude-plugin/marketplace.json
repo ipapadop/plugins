@@ -7,11 +7,11 @@
   "description": "Plugins maintained by Yiannis Papadopoulos.",
   "plugins": [
     {
-      "name": "code-documentation-style",
-      "displayName": "Code Documentation Style",
-      "source": "./plugins/code-documentation-style",
-      "description": "Write code documentation in clear, compact technical language based on the Google developer documentation style guide.",
-      "version": "0.1.0",
+      "name": "ipapadop-skills",
+      "displayName": "ipapadop Skills",
+      "source": "./plugins/ipapadop-skills",
+      "description": "Opinionated agent skills for Codex and Claude Code.",
+      "version": "0.3.0",
       "author": {
         "name": "Yiannis Papadopoulos",
         "url": "https://github.com/ipapadop"
@@ -20,55 +20,7 @@
       "repository": "https://github.com/ipapadop/plugins",
       "license": "MIT",
       "category": "Productivity",
-      "tags": ["agent-skills", "documentation"]
-    },
-    {
-      "name": "skill-provenance",
-      "displayName": "Skill Provenance",
-      "source": "./plugins/skill-provenance",
-      "description": "Create evidence-based skill READMEs with provenance, dependency, authorship, version, and release-history details.",
-      "version": "0.2.0",
-      "author": {
-        "name": "Yiannis Papadopoulos",
-        "url": "https://github.com/ipapadop"
-      },
-      "homepage": "https://github.com/ipapadop/plugins",
-      "repository": "https://github.com/ipapadop/plugins",
-      "license": "MIT",
-      "category": "Productivity",
-      "tags": ["agent-skills", "documentation"]
-    },
-    {
-      "name": "simplified-technical-english",
-      "displayName": "Simplified Technical English",
-      "source": "./plugins/simplified-technical-english",
-      "description": "Write short, direct technical text without filler, based on ASD-STE100 Simplified Technical English.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Yiannis Papadopoulos",
-        "url": "https://github.com/ipapadop"
-      },
-      "homepage": "https://github.com/ipapadop/plugins",
-      "repository": "https://github.com/ipapadop/plugins",
-      "license": "MIT",
-      "category": "Productivity",
-      "tags": ["agent-skills", "writing"]
-    },
-    {
-      "name": "power-of-ten",
-      "displayName": "Power of Ten",
-      "source": "./plugins/power-of-ten",
-      "description": "Write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's Power of Ten rules.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Yiannis Papadopoulos",
-        "url": "https://github.com/ipapadop"
-      },
-      "homepage": "https://github.com/ipapadop/plugins",
-      "repository": "https://github.com/ipapadop/plugins",
-      "license": "MIT",
-      "category": "Coding",
-      "tags": ["agent-skills", "c", "cpp", "safety-critical"]
+      "tags": ["agent-skills", "documentation", "writing"]
     }
   ]
 }
