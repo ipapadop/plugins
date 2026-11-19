@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Check skill metadata and plugin version
+      - name: Check skill metadata and plugin versions
         run: |
           pip install pyyaml==6.0.2
           if [ "${{ github.event_name }}" = "pull_request" ]; then
@@ -35,9 +35,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Validate marketplace and plugin
+      - name: Validate marketplace and plugins
         run: |
           # Pinned: --strict fails on warnings, and new releases add checks.
           npm install -g @anthropic-ai/claude-code@2.1.306
           claude plugin validate . --strict
-          claude plugin validate plugins/ipapadop-skills --strict
+          for manifest in plugins/*/.claude-plugin/plugin.json; do
+            claude plugin validate "${manifest%/.claude-plugin/plugin.json}" --strict
+          done
