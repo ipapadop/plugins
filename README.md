@@ -67,14 +67,6 @@ Run these commands inside Claude Code:
 
 If the installation summary requests it, run `/reload-plugins`. Each skill is available as `/<plugin>:<skill>`, for example `/ipapadop-cpp:power-of-ten`.
 
-### Upgrade from `ipapadop-skills`
-
-The `ipapadop-skills` plugin no longer exists. Uninstall it, then install the plugins above:
-
-```text
-/plugin uninstall ipapadop-skills@ipapadop
-```
-
 ## Install in Gemini CLI
 
 Install all skills of one plugin:
