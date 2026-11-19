@@ -4,11 +4,19 @@ Collection of opinionated agent skills for Codex, Claude Code, and other tools t
 
 ## Available skills
 
-All skills are in one plugin, `ipapadop-skills`.
+The skills are in three plugins.
+
+`ipapadop-documentation`:
 
 - `code-documentation-style`: makes agents write docstrings, API comments, code comments, and code READMEs in clear, compact language, based on the Google developer documentation style guide.
-- `power-of-ten`: makes agents write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's "Power of Ten" rules (NASA/JPL), with a C++ interpretation of each rule.
 - `simplified-technical-english`: makes agents write short, direct technical text without filler, based on the writing rules of ASD-STE100 Simplified Technical English (Issue 9).
+
+`ipapadop-cpp`:
+
+- `power-of-ten`: makes agents write, review, and refactor safety-critical C and C++ code with Gerard Holzmann's "Power of Ten" rules (NASA/JPL), with a C++ interpretation of each rule.
+
+`ipapadop-skill-authoring`:
+
 - `skill-provenance`: creates evidence-based skill documentation with provenance, dependency, authorship, version, and release-history details.
 
 ## Evaluate the skills
@@ -28,18 +36,20 @@ For prose and provenance cases, inspect factual accuracy, required wording, edit
 Ask Codex:
 
 ```text
-Use $skill-installer to install plugins/ipapadop-skills/skills/skill-provenance from ipapadop/plugins.
+Use $skill-installer to install plugins/ipapadop-skill-authoring/skills/skill-provenance from ipapadop/plugins.
 ```
 
 The skill becomes available on the next turn.
 
-### Install all skills
+### Install a plugin
 
-Register this repository as a marketplace and install the plugin:
+Register this repository as a marketplace and install the plugins you want:
 
 ```bash
 codex plugin marketplace add ipapadop/plugins
-codex plugin add ipapadop-skills@ipapadop
+codex plugin add ipapadop-documentation@ipapadop
+codex plugin add ipapadop-cpp@ipapadop
+codex plugin add ipapadop-skill-authoring@ipapadop
 ```
 
 Start a new Codex thread after installation so Codex discovers the plugin's skills.
@@ -50,21 +60,31 @@ Run these commands inside Claude Code:
 
 ```text
 /plugin marketplace add ipapadop/plugins
-/plugin install ipapadop-skills@ipapadop
+/plugin install ipapadop-documentation@ipapadop
+/plugin install ipapadop-cpp@ipapadop
+/plugin install ipapadop-skill-authoring@ipapadop
 ```
 
-If the installation summary requests it, run `/reload-plugins`. Each skill is available as `/ipapadop-skills:<skill>`, for example `/ipapadop-skills:skill-provenance`.
+If the installation summary requests it, run `/reload-plugins`. Each skill is available as `/<plugin>:<skill>`, for example `/ipapadop-cpp:power-of-ten`.
+
+### Upgrade from `ipapadop-skills`
+
+The `ipapadop-skills` plugin no longer exists. Uninstall it, then install the plugins above:
+
+```text
+/plugin uninstall ipapadop-skills@ipapadop
+```
 
 ## Install in Gemini CLI
 
-Install all skills:
+Install all skills of one plugin:
 
 ```bash
 gemini skills install https://github.com/ipapadop/plugins.git \
-  --path plugins/ipapadop-skills/skills
+  --path plugins/ipapadop-documentation/skills
 ```
 
-To install one skill, add its directory to the path, for example `--path plugins/ipapadop-skills/skills/skill-provenance`. Re-run the command to update.
+To install one skill, add its directory to the path, for example `--path plugins/ipapadop-documentation/skills/simplified-technical-english`. Re-run the command to update.
 
 ## Antigravity compatibility
 

@@ -1,7 +1,7 @@
 {
-  "name": "ipapadop-skills",
-  "version": "0.4.1",
-  "description": "Opinionated agent skills for code documentation, safety-critical C and C++, Simplified Technical English, and skill provenance.",
+  "name": "ipapadop-cpp",
+  "version": "0.5.0",
+  "description": "Opinionated agent skills for safety-critical C and C++.",
   "author": {
     "name": "Yiannis Papadopoulos",
     "url": "https://github.com/ipapadop"

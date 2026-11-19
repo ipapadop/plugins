@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Checks the ipapadop-skills plugin before merge.
+"""Checks the plugins before merge.
 
 Checks each skill's metadata against the Codex limits, and checks that a
-change to any skill comes with a higher plugin version.
+change to any skill comes with a higher version of its plugin.
 
 Usage: check-plugin.py [--base REF]
 
-With --base, compares the plugin version with the version at the merge base
+With --base, compares each plugin version with the version at the merge base
 of REF and HEAD. Without it, checks only the skill metadata.
 """
 
@@ -20,8 +20,8 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-MANIFEST = Path("plugins/ipapadop-skills/.claude-plugin/plugin.json")
-SKILLS = Path("plugins/ipapadop-skills/skills")
+PLUGINS = Path("plugins")
+MANIFEST = Path(".claude-plugin/plugin.json")
 
 # Codex shows at most 1024 characters of a description and truncates the rest.
 MAX_DESCRIPTION = 1024
@@ -75,25 +75,27 @@ def version_tuple(version):
     return tuple(int(part) for part in version.split("."))
 
 
-def check_version(base):
-    """Returns a problem if skills changed since base without a version bump."""
-    merge_base = git("merge-base", base, "HEAD")
-    if merge_base.returncode != 0:
-        return f"cannot find the merge base of {base} and HEAD: {merge_base.stderr.strip()}"
-    merge_base = merge_base.stdout.strip()
+def check_version(plugin, merge_base, base):
+    """Returns a problem if a plugin's skills changed since base without a version bump.
 
-    changed = git("diff", "--name-only", merge_base, "--", str(SKILLS)).stdout.split()
+    plugin is the plugin directory relative to ROOT.
+    """
+    manifest = plugin / MANIFEST
+    diff = git("diff", "--name-only", merge_base, "--", str(plugin / "skills"))
+    if diff.returncode != 0:
+        return f"cannot compare {plugin} with {base}: {diff.stderr.strip()}"
+    changed = diff.stdout.split()
     if not changed:
         return None
-    old = git("show", f"{merge_base}:{MANIFEST}")
+    old = git("show", f"{merge_base}:{manifest}")
     if old.returncode != 0:
-        print(f"Version check skipped: {MANIFEST} does not exist at {base}.")
+        print(f"Version check skipped: {manifest} does not exist at {base}.")
         return None
     old_version = json.loads(old.stdout)["version"]
-    new_version = json.loads((ROOT / MANIFEST).read_text())["version"]
+    new_version = json.loads((ROOT / manifest).read_text())["version"]
     if version_tuple(new_version) <= version_tuple(old_version):
         return (
-            f"{len(changed)} skill file(s) changed but {MANIFEST} version is "
+            f"{len(changed)} skill file(s) changed but {manifest} version is "
             f"{new_version}, not higher than {old_version} at {base}"
         )
     return None
@@ -105,15 +107,31 @@ def main():
     args = parser.parse_args()
 
     failed = False
-    for skill_dir in sorted(p for p in (ROOT / SKILLS).iterdir() if p.is_dir()):
-        for problem in check_skill(skill_dir):
-            print(f"{skill_dir.name}: {problem}")
-            failed = True
+    plugins = sorted(
+        p.relative_to(ROOT)
+        for p in (ROOT / PLUGINS).iterdir()
+        if (p / MANIFEST).is_file()
+    )
+    for plugin in plugins:
+        skills = ROOT / plugin / "skills"
+        for skill_dir in sorted(p for p in skills.iterdir() if p.is_dir()):
+            for problem in check_skill(skill_dir):
+                print(f"{plugin.name}/{skill_dir.name}: {problem}")
+                failed = True
     if args.base:
-        problem = check_version(args.base)
-        if problem:
-            print(problem)
+        merge_base = git("merge-base", args.base, "HEAD")
+        if merge_base.returncode != 0:
+            print(
+                f"cannot find the merge base of {args.base} and HEAD: "
+                f"{merge_base.stderr.strip()}"
+            )
             failed = True
+        else:
+            for plugin in plugins:
+                problem = check_version(plugin, merge_base.stdout.strip(), args.base)
+                if problem:
+                    print(problem)
+                    failed = True
     if not failed:
         print("OK")
     return 1 if failed else 0
